@@ -34,9 +34,11 @@ class Home extends \Core\Controller
         $users = User::getAll();
         View::renderTemplate('Home/users.html',['users' => $users]);
     }
+    
     public function eventsAction() {
         $events = Event::getAll();
-        View::renderTemplate('Home/events.html',['events' => $events]);
+        echo json_encode($events);
+        //View::renderTemplate('Home/events.html',['events' => $events]);
     }
 
     public function usersJsonAction() {

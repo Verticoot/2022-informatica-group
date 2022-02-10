@@ -5,9 +5,12 @@ var app = {
         let pathname = window.location.pathname;
         $.getJSON(`${origin}${pathname}?users.json`)
             .done(app.writeUsers)
-            .fail(app.onFail);
+            .fail(app.onFailUsers);
+        $.getJSON(`${origin}${pathname}?events.json`)
+            .done(app.writeEvents)
+            .fail(app.onFailEvents);
     },
-    onFail: function (error) {
+    onFailUsers: function (error) {
         console.log("errore nella lettura del file json");
         console.log(error);
     },
@@ -16,6 +19,23 @@ var app = {
         for (user of jsonData) {
             $("ul").append(`<li>${user.user_id}: <span class="cool">${user.name}</span></li>`);
         }
+    },
+    onFailEvents: function (error) {
+        console.log("errore nella lettura del file json");
+        console.log(error);
+    },
+    writeEvents: function (jsonData) {
+        console.log(jsonData);
+        for (e of jsonData)
+			$("body").append(
+				`<div class="event">
+					<h1>${e.nome}</h1>
+					<div class="details">
+						<span>by ${e.organizzatore}</span>
+						<span> ${e.costo == 0 ? `free` : `${e.costo}€`}
+					</div>
+				</div>`
+			)
     }
 }
 
