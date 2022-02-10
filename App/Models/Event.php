@@ -20,7 +20,7 @@ class Event extends \Core\Model
     public static function getAll()
     {
         $db = static::getDB();
-        $stmt = $db->query('SELECT id_evento, titolo FROM eventi');
+        $stmt = $db->query('SELECT id_evento, titolo, costo, organizzatore FROM eventi');
         $result = array();
 
         if ($stmt->num_rows > 0) {
@@ -29,6 +29,8 @@ class Event extends \Core\Model
                 $obj = [
                     "id_evento" => $row["id_evento"],
                     "titolo" => $row["titolo"],
+                    "costo" => $row["costo"],
+                    "organizzatore" => $row["organizzatore"],
                 ];
                 array_push($result,$obj);
             }
@@ -39,7 +41,7 @@ class Event extends \Core\Model
     public static function getEvent($id)
     {
         $db = static::getDB();
-        $stmt = $db->query('SELECT id_evento, titolo FROM eventi WHERE id_evento='.$id);
+        $stmt = $db->query('SELECT id_evento, titolo, costo, organizzatore FROM eventi WHERE id_evento='.$id);
         $result = array();
         if ($stmt->num_rows > 0) {
             // output data of each row
@@ -47,6 +49,8 @@ class Event extends \Core\Model
             $obj = [
                 "id_evento" => $row["id_evento"],
                 "titolo" => $row["titolo"],
+                "costo" => $row["costo"],
+                "organizzatore" => $row["organizzatore"],
             ];
             array_push($result,$obj);
         }
